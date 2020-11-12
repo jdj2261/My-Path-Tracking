@@ -194,7 +194,6 @@ def main():
     states.append(time, state)
     target_course = TargetCourse(cx, cy)
 
-
     target_ind, _ = target_course.search_target_index(state)
 
     while T >= time and lastIndex > target_ind:
