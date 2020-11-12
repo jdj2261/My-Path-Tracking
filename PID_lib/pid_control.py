@@ -1,15 +1,13 @@
 import time
 
 class PID_Control:
-    def __init__(self, P=0.2, I=0.0, D=0.0, duration=0.1):
+    def __init__(self, P=0.2, I=0.0, D=0.0, dt=0.1, current_time=0.0):
         self.Kp = P
         self.Ki = I
         self.Kd = D
-        self.duration = duration
-
-        self.current_time = time.time()
-        self.last_time = self. current_time
-
+        self.dt = dt
+        self.current_time = current_time
+        self.last_time = self.current_time
         self.clear()
 
     def clear(self):
@@ -24,14 +22,18 @@ class PID_Control:
         self.int_error = 0.0
         self.windup_guard = 20.0
 
-    def update(self, target, current):
+    def update(self, target, current, current_time):
         error = target - current
 
-        self.current_time = time.time()
+        self.current_time = current_time
         delta_time = self.current_time - self.last_time
         delta_error = error - self.last_error
 
-        if (delta_time >= self.duration):
+        # print(delta_time)
+        # print("last time : {}, current_time : {} ".format(self.last_time, self.current_time))
+
+        if (delta_time >= self.dt):
+            # print("yes")
 
             self.P_term = self.Kp * error
             self.I_term += self.Ki * error * delta_time 
@@ -47,10 +49,12 @@ class PID_Control:
 
             # Remember last time and last error for next calculation
             self.last_time = self.current_time
+          
             self.last_error = error
             self.output = self.P_term + self.I_term + self.D_term
+            # time.sleep(0.01)
             
-            return self.output 
+            return float(self.output) 
 
     def setWindup(self, windup):
         self.windup_guard = windup
