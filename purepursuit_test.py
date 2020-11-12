@@ -1,7 +1,19 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
+'''
+Created Date: Nov 10. 2020
+Copyright: UNMANNED SOLUTION
+Author: Dae Jong Jin 
+Description: Pure Pursuit Algorithm, PID Control Test 
+'''
+
 import numpy as np
 import math
 import time
 import matplotlib.pyplot as plt
+
 # Libraries
 from PLT_lib.plotlib import PlotLib
 from PID_lib.pid_control import PIDControl
@@ -19,8 +31,8 @@ Ld = 5.0  # [m] look-ahead distance
 # PID Param #
 #############################################
 Kp = 1.0  # speed proportional gain
-Kd = 0.001
-Ki = 0.01
+Kd = 0.0
+Ki = 0.0
 target_speed = 5.0 / 3.6 #[m/s]
 #############################################
 
