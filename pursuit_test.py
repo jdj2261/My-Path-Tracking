@@ -33,7 +33,7 @@ Ld = 5.0  # [m] look-ahead distance
 Kp = 1.0  # speed proportional gain
 Kd = 0.0
 Ki = 0.0
-target_speed = 5.0 / 3.6 #[m/s]
+target_speed = 1.0 / 3.6 #[m/s]
 #############################################
 
 dt = 0.1  # [s] time tick
@@ -70,7 +70,10 @@ def main():
             delta, target_index = PurePursuit.pure_pursuit_steer_control(state, course)
             state.update(pid_output, delta, delta_time)
 
-            print(target_index)
+            print("Target Index : {}\t".format(target_index), end=" ")
+            print("Current Vel : {0:.4f}".format(state.v*3.6))  
+
+
             duration_time += delta_time
             states.append(duration_time, state)
 

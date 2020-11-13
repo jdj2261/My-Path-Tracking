@@ -23,7 +23,7 @@ class PIDControl:
         error = target - current
         delta_error = error - self.last_error
 
-        print(error, delta_error)
+        # print(error, delta_error)
         self.P_term = self.Kp * error
         self.I_term += self.Ki * error * delta_time 
 
@@ -41,8 +41,8 @@ class PIDControl:
         self.last_error = error
         self.output = self.P_term + self.I_term + self.D_term
 
-        print("P : {}, I : {}, D : {}, Output: {}".format(
-            self.P_term, self.I_term, self.D_term, self.output))
+        # print("P : {}, I : {}, D : {}, Output: {}".format(
+        #     self.P_term, self.I_term, self.D_term, self.output))
         # time.sleep(0.01)
         
         return float(self.output) 

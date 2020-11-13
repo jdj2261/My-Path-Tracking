@@ -10,8 +10,8 @@ class PlotLib():
         plt.title(title)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
-        # plt.axis("equal")
-        # plt.grid(True)
+        plt.axis("equal")
+        plt.grid(True)
         
     @staticmethod
     def draw(x, y, color="r", label="Test"):

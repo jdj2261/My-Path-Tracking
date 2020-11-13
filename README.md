@@ -1,6 +1,6 @@
 Pure Pursuit Algorithm
 
-Writer : Dae Jong Jin
+Author : Dae Jong Jin
 
 Reference : 
 
@@ -25,14 +25,8 @@ Algorithm to follow the path by calculating the curvature for the vehicle to mov
 ## 2. Equation
 
 <img src="https://user-images.githubusercontent.com/35681273/98942326-2d62b180-2531-11eb-8468-d7b8aa5dfd0f.png" width="400" height = "300" />
-$$
-R = \frac{l_{d}}{2sin\left ( \alpha  \right )}\\
-k = \frac{2sin(\alpha)}{l_{d}} \\
-\delta =tan^{-1}kL \\
-\delta = tan^{-1}(\frac{2Lsin(\alpha (t)}{^{l_{d}}})\\
-\delta (t) = tan^{-1}(\frac{2Lsin(\alpha )}{kv_{x}(t)})
-$$
 
+![image-20201113092742665](https://user-images.githubusercontent.com/35681273/99012861-962e4600-2592-11eb-83bd-eea8cb414697.gif)
 
 ## 3. Detailed Description
 
@@ -73,7 +67,7 @@ $$
 (이때, 차량이 뒤로 가지 않으려면
 현재위치와 목표점과의 길이는 현재위치와 다음 목표점과의 길이보다 작아야 한다는 조건을 세우고 작지 않다면 인덱스를 1 증가시킨다.)
 
-3. target index에 해당하는 목표 점과 LD를 알고있으니 차량의 조향각을 구하는 공식에 대입한다.
+3. target index에 해당하는 목표 점과 LD를 알고 있으니 차량의 조향각을 구하는 공식에 대입한다.
 
 4. 차량의 위치 (x, y, heading)를 계속 업데이트 한다. 
 ~~~
@@ -102,7 +96,7 @@ $$
 ## 5. Use
 
 ~~~
-$ python3 purepursuit_test.py
+$ python3 pursuit_test.py
 ~~~
 
 

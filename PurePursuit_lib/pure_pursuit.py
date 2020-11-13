@@ -57,7 +57,7 @@ class TargetCourse:
             dx = [state.rear_x - index_cx for index_cx in self.cx]
             dy = [state.rear_y - index_cy for index_cy in self.cy]
 
-            distance = np.hypot(dx, dy)
+            distance = np.hypot(dx, dy) 
             index = np.argmin(distance)
             self.old_nearest_point_index = index
         # 이후에 
@@ -83,7 +83,7 @@ class TargetCourse:
             if (index + 1) >= len(self.cx):
                 break
             index += 1
-        
+ 
         return Lf_d, index
 
 class PurePursuit:
@@ -104,8 +104,10 @@ class PurePursuit:
             target_index = len(trajectory.cx) - 1
         
         alpha = math.atan2(target_y - state.rear_y, target_x - state.rear_x) - state.yaw
-        delta = math.atan2(2.0 * state.wb * math.sin(alpha) / Ld , 1.0)
-
+        try:
+            delta = math.atan2(2.0 * state.wb * math.sin(alpha) / Ld , 1.0)
+        except:
+            delta = 0
         return delta, target_index
 
     @staticmethod
