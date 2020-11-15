@@ -1,4 +1,3 @@
-import math
 import numpy as np
 
 class State:
@@ -9,21 +8,22 @@ class State:
         self.y = y
         self.yaw = yaw
         self.v = v 
-        self.rear_x = self.x - ((self.wb / 2) * math.cos(self.yaw))
-        self.rear_y = self.y - ((self.wb / 2) * math.sin(self.yaw))
+        self.rear_x = self.x - ((self.wb / 2) * np.cos(self.yaw))
+        self.rear_y = self.y - ((self.wb / 2) * np.sin(self.yaw))
 
-    def update(self, a, delta, dt):
-        self.x += self.v * math.cos(self.yaw)  
-        self.y += self.v * math.sin(self.yaw) 
-        self.yaw += self.v / self.wb * math.tan(delta) 
-        self.v += a * dt
-        self.rear_x = self.x - ((self.wb / 2) * math.cos(self.yaw))
-        self.rear_y = self.y - ((self.wb / 2) * math.sin(self.yaw))
+    def update(self, acceleration, delta, dt):
+        self.x += self.v * np.cos(self.yaw)  
+        self.y += self.v * np.sin(self.yaw) 
+        self.yaw += self.v / self.wb * np.tan(delta) 
+        self.yaw = normalize_angle(self.yaw)
+        self.v += acceleration * dt
+        self.rear_x = self.x - ((self.wb / 2) * np.cos(self.yaw))
+        self.rear_y = self.y - ((self.wb / 2) * np.sin(self.yaw))
 
     def calc_distance(self, point_x, point_y):
         dx = self.rear_x - point_x
         dy = self.rear_y - point_y
-        return math.hypot(dx, dy)
+        return np.hypot(dx, dy)
 
 class States:
 
@@ -103,17 +103,30 @@ class PurePursuit:
             target_y = trajectory.cy[-1]
             target_index = len(trajectory.cx) - 1
         
-        alpha = math.atan2(target_y - state.rear_y, target_x - state.rear_x) - state.yaw
+        alpha = np.arctan2(target_y - state.rear_y, target_x - state.rear_x) - state.yaw
         try:
-            delta = math.atan2(2.0 * state.wb * math.sin(alpha) / Ld , 1.0)
+            delta = np.arctan2(2.0 * state.wb * np.sin(alpha) / Ld , 1.0)
         except:
             delta = 0
         return delta, target_index
 
-    @staticmethod
-    def rad2deg (radian):
-        return radian * 180.0 / math.pi
 
-    @staticmethod
-    def deg2rad(degree) :
-	    return degree * math.pi / 180.0
+def rad2deg (radian):
+    return radian * 180.0 / np.pi
+
+def deg2rad(degree) :
+    return degree * np.pi / 180.0
+
+def normalize_angle(angle):
+    """
+    Normalize an angle to [-pi, pi].
+    :param angle: (float)
+    :return: (float) Angle in radian in [-pi, pi]
+    """
+    while angle > np.pi:
+        angle -= 2.0 * np.pi
+
+    while angle < -np.pi:
+        angle += 2.0 * np.pi
+
+    return angle

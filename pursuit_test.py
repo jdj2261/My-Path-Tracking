@@ -10,7 +10,6 @@ Description: Pure Pursuit Algorithm, PID Control Test
 '''
 
 import numpy as np
-import math
 import time
 import matplotlib.pyplot as plt
 
@@ -25,7 +24,7 @@ from PurePursuit_lib.pure_pursuit import State, States, TargetCourse, PurePursui
 #############################################
 Wheel_Base = 2.9  # [m] wheel base of vehicle
 Lf_k = 1.0  # look forward gain
-Ld = 5.0  # [m] look-ahead distance
+Ld = 3.0  # [m] look-ahead distance
 
 #############################################
 # PID Param #
@@ -41,7 +40,7 @@ show_animation = True
 
 def main():
     cx = np.arange(0,50,0.5)
-    cy = [math.sin(ix / 20) * ix / 2.0 for ix in cx]
+    cy = [np.sin(ix / 20) * ix / 2.0 for ix in cx]
 
     state = State(Wheel_Base, x=3.0, y=3.0, yaw=0.0, v=0.0)
 
@@ -71,7 +70,7 @@ def main():
             state.update(pid_output, delta, delta_time)
 
             print("Target Index : {}\t".format(target_index), end=" ")
-            print("Current Vel : {0:.4f}".format(state.v*3.6))  
+            print("Current Vel : {0:.4f}, Current Yaw : {1:.2f}".format(state.v*3.6, state.yaw))  
 
 
             duration_time += delta_time
