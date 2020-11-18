@@ -21,7 +21,6 @@ max_steer = np.radians(30.0)  # [rad] max steering angle
 
 show_animation = True
 
-
 class State(object):
     """
     Class representing the state of a vehicle.
@@ -75,7 +74,7 @@ def stanley_control(state, cx, cy, cyaw, last_target_idx):
     :param last_target_idx: (int)
     :return: (float, int)
     """
-    current_target_idx, error_front_axle = calc_target_index(state, cx, cy)
+    _,current_target_idx, error_front_axle = calc_target_index(state, cx, cy)
 
     if last_target_idx >= current_target_idx:
         current_target_idx = last_target_idx
@@ -124,12 +123,16 @@ def calc_target_index(state, cx, cy):
     error_front_axle = min(d)
     target_idx = d.index(error_front_axle)
 
+    test = normalize_angle(np.arctan2(
+        fy - cy[target_idx], fx - cx[target_idx]))
+
+    # print(np.rad2deg(test), np.rad2deg(state.yaw))
     target_yaw = normalize_angle(np.arctan2(
         fy - cy[target_idx], fx - cx[target_idx]) - state.yaw)
     if target_yaw > 0.0:
         error_front_axle = - error_front_axle
 
-    return target_idx, error_front_axle
+    return target_yaw, target_idx, error_front_axle
 
 
 def main():
@@ -154,7 +157,7 @@ def main():
     yaw = [state.yaw]
     v = [state.v]
     t = [0.0]
-    target_idx, _ = calc_target_index(state, cx, cy)
+    target_yaw, target_idx, _ = calc_target_index(state, cx, cy)
 
     while max_simulation_time >= time and last_idx > target_idx:
         ai = pid_control(target_speed, state.v)
@@ -174,6 +177,9 @@ def main():
             plt.plot(cx, cy, ".r", label="course")
             plt.plot(x, y, "-b", label="trajectory")
             plt.plot(cx[target_idx], cy[target_idx], "xg", label="target")
+            print(target_yaw)
+            plt.arrow(cx[target_idx], cy[target_idx], 1 * np.cos(target_yaw), 1 * np.sin(target_yaw),
+                    fc="r", ec="k", head_width=2, head_length=2)
             plt.axis("equal")
             plt.grid(True)
             plt.title("Speed[km/h]:" + str(state.v * 3.6)[:4])

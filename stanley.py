@@ -24,7 +24,6 @@ max_steer = np.radians(30.0)  # [rad] max steering angle
 
 show_animation = True
 
-
 class State(object):
     """
     Class representing the state of a vehicle.

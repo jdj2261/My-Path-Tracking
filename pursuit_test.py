@@ -35,12 +35,12 @@ Ki = 0.0
 target_speed = 1.0 / 3.6 #[m/s]
 #############################################
 
-dt = 0.1  # [s] time tick
+dt = 0.01  # [s] time tick
 show_animation = True
 
 def main():
-    cx = np.arange(0,50,0.5)
-    cy = [np.sin(ix / 20) * ix / 2.0 for ix in cx]
+    cx = np.arange(0,100,0.5)
+    cy = [np.sin(ix / 5) * ix / 2.0 for ix in cx]
 
     state = State(Wheel_Base, x=3.0, y=3.0, yaw=0.0, v=0.0)
 
