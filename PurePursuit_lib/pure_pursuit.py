@@ -1,8 +1,10 @@
 import numpy as np
 
 class State:
+    """Instantiate the object."""
 
     def __init__(self, Wheel_Base, x=0.0, y=0.0, yaw=0.0, v=0.0):
+        super(State, self).__init__()
         self.wb = Wheel_Base
         self.x = x
         self.y = y
