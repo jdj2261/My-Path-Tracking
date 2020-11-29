@@ -83,7 +83,10 @@ def stanley_control(state, cx, cy, cyaw, last_target_idx):
         current_target_idx = last_target_idx
 
     # theta_e corrects the heading error
+
     theta_e = normalize_angle(cyaw[current_target_idx] - state.yaw)
+
+    print("Theta E : {:.2f}".format(theta_e))
     # theta_d corrects the cross track error
     theta_d = np.arctan2(k * error_front_axle, state.v)
     # Steering control
@@ -126,20 +129,17 @@ def calc_target_index(state, cx, cy):
     mind = min(d)
     target_idx = np.argmin(d)
 
-    # Project RMS error onto front axle vector
-    front_axle_vec = [-np.cos(state.yaw + np.pi / 2),
-                      -np.sin(state.yaw + np.pi / 2)]
+    tyaw = normalize_angle(state.yaw - np.arctan2(
+        fy - cy[target_idx], fx - cx[target_idx]))
 
-
-    tyaw = normalize_angle(np.arctan2(
-        fy - cy[target_idx], fx - cx[target_idx]) - state.yaw)
     if tyaw > 0.0:
-        mind = - mind
+        mind = abs(mind)
+    else:
+        mind = - abs(mind)
 
-    print(mind)
-    # error_front_axle = np.dot([dx[target_idx], dy[target_idx]], front_axle_vec)
+    print("tyaw : {:.2f}, distance : {:.2f}".format(tyaw, mind))
+    
 
-    # print([dx[target_idx], dy[target_idx]],front_axle_vec, error_front_axle)
     return target_idx, mind
 
 
@@ -157,7 +157,7 @@ def main():
     max_simulation_time = 100.0
 
     # Initial state
-    state = State(x=-0.0, y=0.0, yaw=np.radians(20.0), v=0.0)
+    state = State(x=0.0, y=-20.0, yaw=np.radians(20.0), v=0.0)
 
     last_idx = len(cx) - 1
     time = 0.0

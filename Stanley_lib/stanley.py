@@ -65,7 +65,7 @@ class TargetCourse:
         target_index = np.argmin(distance)
 
         """
-        I dont understande
+        I dont understand
         """
         return target_index, min_distance
 
