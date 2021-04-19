@@ -2,12 +2,11 @@ Pure Pursuit Algorithm
 
 Author : Dae Jong Jin
 
-Reference : 
+Reference :
 
 Implementation of the Pure Pursuit Path Tracking Algorithm(R.Craig Coulter)
 
 https://github.com/AtsushiSakai/PythonRobotics/blob/master/PathTracking/pure_pursuit/pure_pursuit.py
-
 
 Algorithm to follow the path by calculating the curvature for the vehicle to move from the current position to the target position
 
@@ -20,13 +19,9 @@ Algorithm to follow the path by calculating the curvature for the vehicle to mov
 5. Calculate the curvature and request the vehicle to set the steering to that curvature.
 6. Update the vehicle's position
 
-
-
 ## 2. Equation
 
 <img src="https://user-images.githubusercontent.com/35681273/98942326-2d62b180-2531-11eb-8468-d7b8aa5dfd0f.png" width="400" height = "300" />
-
-![image-20201113092742665](https://user-images.githubusercontent.com/35681273/99012861-962e4600-2592-11eb-83bd-eea8cb414697.gif)
 
 ## 3. Detailed Description
 
@@ -34,27 +29,22 @@ Algorithm to follow the path by calculating the curvature for the vehicle to mov
 
    - the vehicle’s current position as (x,y,heading)
    - This original position is the global reference frame for the run
-
 2. Find the path point closet to the vehicle.
 
    - The vehicle should steer toward the closest point one lookahead distance from its current location.
 
      Therefore, the path point closest to the vehicle will first be found, and the search for a point 1 lookahead distance away from the vehicle will start at this point and commence up the path.
-
 3. Find the goal point.
 
-   -  The goal point is found by moving up the path and calculating the distance between that path point and the vehicle’s current location. 
+   - The goal point is found by moving up the path and calculating the distance between that path point and the vehicle’s current location.
 
-     Path point locations are recorded in the global frame; this calculation is done in global coordinates
-
+   Path point locations are recorded in the global frame; this calculation is done in global coordinates
 4. Transform the goal point to vehicle coordinates.
 
    - Once the goal point has been found, it must be transformed to the vehicle’s local coordinates. The geometric derivation for the curvature was done in vehicle coordinates and curvature commands to the vehicle make sense in vehicle. coordinates
-
 5. Calculate the curvature.
 
    - Using the curvature equation derived in the last section, calculate the desired vehicle curvature. The curvature is transformed into steering wheel angle by the vehicle’s on board controller.
-
 6. Update the vehicle’s position.
 
    - During simulation, it is necessary to determine what effects the command has upon the vehicle’s position and heading.
@@ -72,26 +62,22 @@ Algorithm to follow the path by calculating the curvature for the vehicle to mov
 4. 차량의 위치 (x, y, heading)를 계속 업데이트 한다. 
 ~~~
 
-
-
 ## 4. Package
 
 ### 1) PID_lib
 
 - pid_control.py
-  - 차량의 속도를 제어하기 위한 패키지 
+  - 차량의 속도를 제어하기 위한 패키지
 
 ### 2) PurePursuit_lib
 
 - pure_pursuit.py
-  - 차량의 현재 위치 상태, 목표 점 , 조향각을 업데이트 및 계산하는 패키지 
+  - 차량의 현재 위치 상태, 목표 점 , 조향각을 업데이트 및 계산하는 패키지
 
 ### 3) PLT_lib
 
 - plotlib.py
   - 데이터 시각화를 위해 만든 패키지인 pyplot을 이용한 패키지
-
-
 
 ## 5. Use
 
@@ -99,9 +85,4 @@ Algorithm to follow the path by calculating the curvature for the vehicle to mov
 $ python3 pursuit_test.py
 ~~~
 
-
-
 ![Alt Text](https://user-images.githubusercontent.com/35681273/99034073-b88a8880-25bf-11eb-9062-b6ea59fb5b0c.gif)
-
-
-
