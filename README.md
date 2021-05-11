@@ -85,4 +85,5 @@ Algorithm to follow the path by calculating the curvature for the vehicle to mov
 $ python3 pursuit_test.py
 ~~~
 
-![Alt Text](https://user-images.githubusercontent.com/35681273/99034073-b88a8880-25bf-11eb-9062-b6ea59fb5b0c.gif)
+![Alt Text](https://user-images.githubusercontent.com/35681273/117776770-dbe47680-b276-11eb-9626-6111d1f832b4.gif)
+

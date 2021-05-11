@@ -5,7 +5,7 @@ class PlotLib():
     """
     pyplot 
     """    
-    def __init__(self, title = "Test", xlabel="x[m]", ylabel="y[m]"):
+    def __init__(self, title = "Result Speed", xlabel="x[m]", ylabel="y[m]"):
         plt.cla()
         plt.title(title)
         plt.xlabel(xlabel)

@@ -39,7 +39,7 @@ dt = 0.01  # [s] time tick
 show_animation = True
 
 def main():
-    cx = np.arange(0,100,0.5)
+    cx = np.arange(0,20,0.5)
     cy = [np.sin(ix / 5) * ix / 2.0 for ix in cx]
 
     state = State(Wheel_Base, x=3.0, y=3.0, yaw=0.0, v=0.0)
@@ -106,4 +106,9 @@ def main():
         plt_lib2.show()
 
 if __name__ == "__main__":
+    cnt = 5
+    for _ in range(5):
+        print(cnt)
+        cnt -= 1
+        time.sleep(1)
     main()
